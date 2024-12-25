@@ -1,0 +1,40 @@
+﻿@model  mvc12122024.Models.tblEmployee
+@{
+    ViewBag.Title = "AddEmployee";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<h2>AddEmployee</h2>
+
+@using (Html.BeginForm("InsertEmployee", "Employee", FormMethod.Post,new {enctype="multipart/form-data"}))
+{
+    <table>
+        @Html.HiddenFor(m => m.empid)
+        @Html.HiddenFor(m => m.empimage)
+        <tr>
+            <td>Name:</td>
+            <td>@Html.TextBoxFor(m => m.empname)</td>
+        </tr>
+        <tr>
+            <td>Age:</td>
+            <td>@Html.TextBoxFor(m => m.empage)</td>
+        </tr>
+        <tr>
+            <td>Image:</td>
+            <td>
+                <input type="file" name="file" />
+                @if (@ViewBag.img != null)
+                {
+                    <img src="@Url.Content(ViewBag.img)" width="50px" height="40px" />
+                }
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="@ViewBag.EB" />
+            </td>
+        </tr>
+    </table>
+}
+

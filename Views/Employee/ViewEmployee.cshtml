@@ -1,0 +1,30 @@
+﻿@model IEnumerable<mvc12122024.Models.tblEmployee>
+@{
+    ViewBag.Title = "ViewEmployee";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<h2>ViewEmployee</h2>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Image</th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    @foreach (var a in Model)
+    {
+        <tr>
+            <td>@a.empid</td>
+            <td>@a.empname</td>
+            <td>@a.empage</td>
+            <td><img src="@Url.Content(a.empimage)" width="50px" height="40px"/></td>
+            <td>@Html.ActionLink("Delete","DeleteEmployee",new {A=a.empid} )</td>
+            <td>@Html.ActionLink("Edit", "AddEmployee", new { A = a.empid })</td>
+        </tr>
+    }
+</table>

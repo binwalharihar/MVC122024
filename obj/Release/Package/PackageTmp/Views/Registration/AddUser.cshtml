@@ -1,0 +1,79 @@
+﻿@model mvc12122024.Models.tblRegistration1
+@{
+    ViewBag.Title = "AddUser";
+}
+
+<h2>AddUser</h2>
+@using (Html.BeginForm("AddUser", "Registration", FormMethod.Post))
+{
+    <table>
+        @Html.HiddenFor(m => m.rid)
+        <tr>
+            <td>User Name:</td>
+            <td>@Html.TextBoxFor(m => m.rname)</td>
+        </tr>
+        <tr>
+            <td>User Email:</td>
+            <td>@Html.TextBoxFor(m => m.remail)</td>
+        </tr>
+        <tr>
+            <td>User Password:</td>
+            <td>@Html.TextBoxFor(m => m.rpassword)</td>
+        </tr>
+        <tr>
+            <td>User Country:</td>
+            <td>@Html.DropDownListFor(m => m.rcountry, new SelectList(Model.lstcountry, "cid", "cname"), "--select--", new { onchange = "State()" })</td>
+        </tr>
+        <tr>
+            <td>User State:</td>
+            <td>@Html.DropDownListFor(m => m.rstate, new SelectList(Model.lststate, "sid", "sname"), "--select--")</td>
+        </tr>
+        <tr>
+            <td>User Gender:</td>
+            <td>
+                @for (var i= 0;i<  Model.lstgender.Count;i++)
+                {
+                    @Html.RadioButtonFor(m => m.rgender, Model.lstgender[i].gid ) @Model.lstgender[i].gender;
+                }
+            </td>
+        </tr>
+        <tr>
+            <td>User Hobbies:</td>
+            <td>
+                @for (var i = 0; i < Model.lsthobby1.Count; i++)
+                {
+                    @Html.CheckBoxFor(m => Model.lsthobby1[i].isChecked)
+                    @Html.DisplayFor(m => Model.lsthobby1[i].hname)
+                    @Html.HiddenFor(m => Model.lsthobby1[i].hname)
+                            }
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input type="submit" value="@ViewBag.bt" />
+            </td>
+        </tr>
+    </table>
+}
+<script src="~/Scripts/jquery-3.7.0.min.js"></script>
+<script type="text/javascript">
+    function State() {
+        $.ajax({
+            url: '../Registration/BindState',
+            type: 'get',
+            data: { A: $("#rcountry").val() },
+            success: function (data) {
+                $("#rstate").empty();
+                $("#rstate").append($('<option></option>').html("--select--").val(0));
+                for (var i = 0; i < data.length; i++) {
+                    $("#rstate").append($('<option></option>').html(data[i].sname).val(data[i].sid));
+                }
+            },
+            error: function () {
+                alert('data not found');
+            }
+        })
+    }
+</script>
+

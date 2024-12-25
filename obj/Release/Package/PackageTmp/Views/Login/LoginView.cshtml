@@ -1,0 +1,31 @@
+﻿@model mvc12122024.Models.tblRegistration
+@{
+    ViewBag.Title = "LoginView";
+}
+
+<h2>LoginView</h2>
+
+@using(Html.BeginForm("LoginView", "Login", FormMethod.Post)){ 
+<table>
+    @Html.HiddenFor(m=>m.rid)
+    <tr>
+        <td>User Name:</td>
+        <td>@Html.TextBoxFor(m=>m.remail)</td>
+    </tr>
+    <tr>
+        <td>Password:</td>
+        <td>@Html.TextBoxFor(m=>m.rpassword)</td>
+    </tr>
+    <tr>
+        <td><input type="submit" value="Login"/></td>
+    </tr>
+    <tr>
+        <td>
+            @if (ViewBag.Message != null)
+            {
+                <span style="color:red">@ViewBag.Message</span>
+            }
+        </td>
+    </tr>
+</table>
+}
